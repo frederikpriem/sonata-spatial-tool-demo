@@ -117,17 +117,17 @@ class Optimizer(BaseModel):
     _summary_
     """  
 
-    layers: Annotated[Iterable[Layer], Field(
+    layers: Annotated[List[Layer], Field(
         min_length=1,
         description="""The layers used by the optimizer, including at least the model space. Must be
             an iterable of Layer objects."""
     )]
-    decision_criteria: Annotated[Iterable[DecisionCriterion], Field(
+    decision_criteria: Annotated[List[DecisionCriterion], Field(
         min_length=1,
         description="""The decision criteria used by the optimizer. Must be an iterable of
             DecisionCriterion objects.""",
     )]
-    objective_criteria: Annotated[Iterable[ObjectiveCriterion], Field(
+    objective_criteria: Annotated[List[ObjectiveCriterion], Field(
         min_length=1,
         description="""The objective criteria used by the optimizer. Must be an iterable of
             ObjectiveCriterion objects."""
@@ -811,7 +811,7 @@ class Optimizer(BaseModel):
 
     @_doc_function_fields
     def simulate(self,
-        solution: Annotated[Iterable[Union[float, int, bool]], Field(...,
+        solution: Annotated[List[Union[float, int, bool]], Field(...,
             description="""Solution for which spatial simulation is to be performed. The passed
                 solution must be an iterable of numerical values. The length of solution must match
                 the total number of coefficients specified in the decision criteria."""

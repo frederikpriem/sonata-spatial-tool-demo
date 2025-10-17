@@ -261,7 +261,7 @@ def combine(
         min_length=1,
         description="""List of input layer arrays."""
     )],
-    weights: Annotated[Iterable[Union[float, int, bool]], Field(...,
+    weights: Annotated[List[Union[float, int, bool]], Field(...,
         min_length=1,
         description="""Weights used to sum the input layer arrays. Must have same length as
             input_layers."""
