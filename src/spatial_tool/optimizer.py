@@ -118,22 +118,18 @@ class Optimizer(BaseModel):
     """  
 
     layers: Annotated[List[Layer], Field(
-        min_length=1,
         description="""The layers used by the optimizer, including at least the model space. Must be
             an iterable of Layer objects."""
     )]
     decision_criteria: Annotated[List[DecisionCriterion], Field(
-        min_length=1,
         description="""The decision criteria used by the optimizer. Must be an iterable of
             DecisionCriterion objects.""",
     )]
     objective_criteria: Annotated[List[ObjectiveCriterion], Field(
-        min_length=1,
         description="""The objective criteria used by the optimizer. Must be an iterable of
             ObjectiveCriterion objects."""
     )]
     demand: Annotated[Dict[str, int], Field(
-        min_length=1,
         description="""A dictionary of format {cover type label: demand} containing the number of
             cells to be allocated during simulation per specified cover type. Each cover type label
             included in this dictionary must also be present in the label map of the model space."""
