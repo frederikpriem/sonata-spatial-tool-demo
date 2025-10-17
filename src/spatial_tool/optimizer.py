@@ -21,7 +21,9 @@ import deap.base
 import deap.creator
 import deap.tools
 import numpy as np
+import inspect
 import pydantic
+from pydantic.fields import ModelField
 from pydantic import BaseModel, Field, PrivateAttr, ConfigDict
 from deap.tools import Logbook
 from deap.tools.emo import sortNondominated
@@ -1263,7 +1265,11 @@ class Optimizer(BaseModel):
 
         def serialize(obj: Any) -> Any:
 
-            if isinstance(obj, np.ndarray):
+            if obj is None:
+                re =  None
+            elif isinstance(obj, ModelField) or inspect.isclass(obj):
+                re = str(obj)
+            elif isinstance(obj, np.ndarray):
                 re = None
             elif isinstance(obj, dict):
                 re = {k: serialize(v) for k, v in obj.items() if not isinstance(v, np.ndarray)}
@@ -1281,7 +1287,7 @@ class Optimizer(BaseModel):
                 except AttributeError:  # Pydantic v1 fallback
                     data_dict = obj.dict(exclude_none=True)
                 re = {k: serialize(v) for k, v in data_dict.items() if not isinstance(v, np.ndarray)}
-                
+
                 if hasattr(obj, "__private_attributes__"):
                     priv = {k: serialize(getattr(obj, k)) for k in obj.__private_attributes__}
                     re.update(priv)
