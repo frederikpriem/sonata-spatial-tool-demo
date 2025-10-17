@@ -5,3 +5,4 @@ deap
 scipy
 tqdm
 pyyaml
+matplotlib
