@@ -8,7 +8,7 @@
 import copy
 import os
 from pathlib import Path
-from typing import Any, Optional, Union, Iterable, Dict, Literal, Annotated
+from typing import Optional, Union, Dict, Literal, Annotated, List
 
 import numpy as np
 import rasterio as rio
@@ -139,9 +139,9 @@ class Layer(BaseModel):
     @_doc_function_fields
     @validate_all_types
     def update(self,
-        input_layers: Annotated[Iterable[np.ndarray], Field(...,
+        input_layers: Annotated[List[np.ndarray], Field(...,
             min_length=1,
-            description="""Iterable of 2D-arrays that are to be passed as input layer to the layer
+            description="""List of 2D-arrays that are to be passed as input layer to the layer
                 function to get updated layer values. At least one input layer must be given. All
                 input layer arrays must have identical dimenions."""
         )],
