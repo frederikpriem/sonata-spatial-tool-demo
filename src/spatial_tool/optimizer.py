@@ -1276,14 +1276,15 @@ class Optimizer(BaseModel):
             elif isinstance(obj, rasterio.crs.CRS):
                 re = f'EPSG:{obj.to_epsg()}'
             elif isinstance(obj, BaseModel):
-                data = {
-                    k: serialize(v) for k, v in obj.__dict__.items()
-                    if not isinstance(v, np.ndarray)
-                }
-                private_attrs = {
-                    k: serialize(getattr(obj, k)) for k in obj.__private_attributes__
-                }
-                re = {**data, **private_attrs}
+                try:
+                    data_dict = obj.model_dump(exclude_none=True)
+                except AttributeError:  # Pydantic v1 fallback
+                    data_dict = obj.dict(exclude_none=True)
+                re = {k: serialize(v) for k, v in data_dict.items() if not isinstance(v, np.ndarray)}
+                
+                if hasattr(obj, "__private_attributes__"):
+                    priv = {k: serialize(getattr(obj, k)) for k in obj.__private_attributes__}
+                    re.update(priv)
             elif hasattr(obj, "__dict__"):
                 re = {
                     k: serialize(v)
