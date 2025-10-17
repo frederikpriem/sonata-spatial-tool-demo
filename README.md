@@ -13,7 +13,7 @@ Also note that the included source code is only a __partial and static copy of t
 The software included in this repository falls under an "__all rights reserved__" license. Consult the [__LICENSE__](LICENSE) included in this repository for more info.
 
 ## How to use
-Click on the "launch binder" badge below to open the Binder project linked to this repository in your browser. The Binder project may take a few minutes to fully load, so please be patient. Once loaded, open the notebook called 'demo.ipybn' and follow the provided instructions.
+Click on the "launch binder" badge below to open the Binder project linked to this repository in your browser. The Binder project may take a few minutes to fully load, so please be patient. Once loaded, open the notebook called 'demo.ipynb' and follow the provided instructions.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/frederikpriem/sonata-spatial-tool-demo/HEAD)
 
