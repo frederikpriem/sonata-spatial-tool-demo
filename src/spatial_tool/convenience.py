@@ -18,6 +18,14 @@ except ImportError:
     cp = None
 
 
+try:
+    import cupy as cp
+    NDArrayType = Union[np.ndarray, cp.ndarray]
+except ImportError:
+    cp = None
+    NDArrayType = np.ndarray  # fallback
+
+
 if TYPE_CHECKING:
     import cupy as cp
 
@@ -38,7 +46,7 @@ validate_all_types = pydantic.validate_arguments(
 @_doc_function_fields
 @validate_all_types
 def indicate(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array."""
@@ -61,7 +69,7 @@ def indicate(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -95,7 +103,7 @@ def indicate(
 @_doc_function_fields
 @validate_all_types
 def add(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array."""
@@ -109,7 +117,7 @@ def add(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -130,7 +138,7 @@ def add(
 @_doc_function_fields
 @validate_all_types
 def multiply(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array."""
@@ -144,7 +152,7 @@ def multiply(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -165,7 +173,7 @@ def multiply(
 @_doc_function_fields
 @validate_all_types
 def power(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array."""
@@ -179,7 +187,7 @@ def power(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -200,7 +208,7 @@ def power(
 @_doc_function_fields
 @validate_all_types
 def aggregate(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=2,
         description="""List containing at least two input layer arrays."""
     )],
@@ -217,7 +225,7 @@ def aggregate(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -257,7 +265,7 @@ def aggregate(
 @_doc_function_fields
 @validate_all_types
 def combine(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         description="""List of input layer arrays."""
     )],
@@ -275,7 +283,7 @@ def combine(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -304,7 +312,7 @@ def combine(
 @_doc_function_fields
 @validate_all_types
 def logistic(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List of input layer arrays, in this case containing exactly one array."""
@@ -324,7 +332,7 @@ def logistic(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -345,7 +353,7 @@ def logistic(
 @_doc_function_fields
 @validate_all_types
 def logit(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List of input layer arrays, in this case containing exactly one array. All
@@ -357,7 +365,7 @@ def logit(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -378,7 +386,7 @@ def logit(
 @_doc_function_fields
 @validate_all_types
 def standardize(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array."""
@@ -389,7 +397,7 @@ def standardize(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -413,7 +421,7 @@ def standardize(
 @_doc_function_fields
 @validate_all_types
 def normalize(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array."""
@@ -424,7 +432,7 @@ def normalize(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -445,7 +453,7 @@ def normalize(
 @_doc_function_fields
 @validate_all_types
 def minmax(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array."""
@@ -456,7 +464,7 @@ def minmax(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -480,7 +488,7 @@ def minmax(
 @_doc_function_fields
 @validate_all_types
 def dilate(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array. The provided array must be
@@ -502,7 +510,7 @@ def dilate(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -534,7 +542,7 @@ def dilate(
 @_doc_function_fields
 @validate_all_types
 def erode(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array. The provided array must be
@@ -555,7 +563,7 @@ def erode(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -587,7 +595,7 @@ def erode(
 @_doc_function_fields
 @validate_all_types
 def patch_size(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         max_length=1,
         description="""List containing exactly one input layer array. The provided array must be
@@ -605,7 +613,7 @@ def patch_size(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
@@ -637,7 +645,7 @@ def patch_size(
 @_doc_function_fields
 @validate_all_types
 def convolve(
-    input_layers: Annotated[List[Union[np.ndarray, 'cp.ndarray']], Field(...,
+    input_layers: Annotated[List[NDArrayType], Field(...,
         min_length=1,
         description="""List containing exactly one input layer array."""
     )],
@@ -675,7 +683,7 @@ def convolve(
     return_np_array: Annotated[Optional[bool], Field(
         description="""Whether to return a numpy array. Only has effect if backend='cupy'."""
     )] = True
-) -> Union[np.ndarray, 'cp.ndarray']:
+) -> NDArrayType:
 
     """
     _summary_
