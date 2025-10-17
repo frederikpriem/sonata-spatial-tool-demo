@@ -140,7 +140,6 @@ class Layer(BaseModel):
     @validate_all_types
     def update(self,
         input_layers: Annotated[List[np.ndarray], Field(
-            min_length=1,
             description="""List of 2D-arrays that are to be passed as input layer to the layer
                 function to get updated layer values. At least one input layer must be given. All
                 input layer arrays must have identical dimenions."""
