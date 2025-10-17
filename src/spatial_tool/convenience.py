@@ -47,8 +47,6 @@ validate_all_types = pydantic.validate_arguments(
 @validate_all_types
 def indicate(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array."""
     )],
     target: Annotated[Union[float, int, bool], Field(...,
@@ -104,8 +102,6 @@ def indicate(
 @validate_all_types
 def add(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array."""
     )],
     term: Annotated[float, Field(...,
@@ -139,8 +135,6 @@ def add(
 @validate_all_types
 def multiply(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array."""
     )],
     factor: Annotated[float, Field(
@@ -174,8 +168,6 @@ def multiply(
 @validate_all_types
 def power(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array."""
     )],
     exponent: Annotated[float, Field(...,
@@ -209,7 +201,6 @@ def power(
 @validate_all_types
 def aggregate(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=2,
         description="""List containing at least two input layer arrays."""
     )],
     operator: Annotated[
@@ -266,7 +257,6 @@ def aggregate(
 @validate_all_types
 def combine(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
         description="""List of input layer arrays."""
     )],
     weights: Annotated[List[Union[float, int, bool]], Field(...,
@@ -313,8 +303,6 @@ def combine(
 @validate_all_types
 def logistic(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List of input layer arrays, in this case containing exactly one array."""
     )],
     l: Annotated[Optional[Union[float, int]], Field(
@@ -354,8 +342,6 @@ def logistic(
 @validate_all_types
 def logit(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List of input layer arrays, in this case containing exactly one array. All
             array values must be within [0, 1] range."""
     )],
@@ -387,8 +373,6 @@ def logit(
 @validate_all_types
 def standardize(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array."""
     )],
     backend: Annotated[Optional[Literal['default', 'cupy']], Field(
@@ -422,8 +406,6 @@ def standardize(
 @validate_all_types
 def normalize(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array."""
     )],
     backend: Annotated[Optional[Literal['default', 'cupy']], Field(
@@ -454,8 +436,6 @@ def normalize(
 @validate_all_types
 def minmax(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array."""
     )],
     backend: Annotated[Optional[Literal['default', 'cupy']], Field(
@@ -489,8 +469,6 @@ def minmax(
 @validate_all_types
 def dilate(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array. The provided array must be
             (convertible to) binary."""
     )],
@@ -543,8 +521,6 @@ def dilate(
 @validate_all_types
 def erode(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array. The provided array must be
             (convertible to) binary."""
     )],
@@ -596,8 +572,6 @@ def erode(
 @validate_all_types
 def patch_size(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
-        max_length=1,
         description="""List containing exactly one input layer array. The provided array must be
             (convertible to) binary."""
     )],
@@ -646,7 +620,6 @@ def patch_size(
 @validate_all_types
 def convolve(
     input_layers: Annotated[List[NDArrayType], Field(...,
-        min_length=1,
         description="""List containing exactly one input layer array."""
     )],
     radius_m : Annotated[float, Field(...,
