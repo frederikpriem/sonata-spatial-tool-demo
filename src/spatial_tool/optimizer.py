@@ -24,6 +24,7 @@ import numpy as np
 import inspect
 import pydantic
 from pydantic import BaseModel, Field, PrivateAttr, ConfigDict
+from pydantic.warnings import PydanticSerializationUnexpectedValue
 from deap.tools import Logbook
 from deap.tools.emo import sortNondominated
 from tqdm import tqdm
@@ -43,6 +44,9 @@ from .support import _doc_class_fields, _doc_function_fields, _get_backend
 validate_all_types = pydantic.validate_arguments(
     config=ConfigDict(arbitrary_types_allowed=True)
 )
+
+
+warnings.filterwarnings("ignore", category=PydanticSerializationUnexpectedValue)
 
 
 def _update_progress_bar(_, progress_bar):
