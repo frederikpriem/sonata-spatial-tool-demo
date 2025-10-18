@@ -203,13 +203,16 @@ class Optimizer(BaseModel):
     _population: Optional[List] = PrivateAttr(default=None)
     _mutation_strength: Optional[float] = PrivateAttr(default=None)
 
-    def model_post_init(self, __context) -> None:  # pylint: disable=arguments-differ
+    def model_post_init(self, __context=None) -> None:  # pylint: disable=arguments-differ
 
         """
-        Included only for pydantic compatibility. Don't use.
+        Included only for pydantic compatibility. Safe for Binder and non-GPU environments.
         """
 
-        super().model_post_init(__context)
+        # Call parent hook if it exists
+        parent_hook = getattr(super(), "model_post_init", None)
+        if callable(parent_hook):
+            parent_hook(__context)
 
         self._created_at = datetime.now().isoformat()
 
@@ -217,21 +220,26 @@ class Optimizer(BaseModel):
         self.decision_criteria = list(self.decision_criteria)
         self.objective_criteria = list(self.objective_criteria)
 
-        num_coef = 0
-        for criterion in self.decision_criteria:
-            num_coef += criterion.decision_function.num_coef
-        self._num_coef = num_coef
+        self._num_coef = sum(
+            getattr(criterion.decision_function, "num_coef", 0)
+            for criterion in self.decision_criteria
+        )
 
-        if self.num_gpu > 0:
-            if self.num_gpu > cp.cuda.runtime.getDeviceCount():
-                self.num_gpu = cp.cuda.runtime.getDeviceCount()
+        try:
+            n_gpu = cp.cuda.runtime.getDeviceCount()
+        except Exception:
+            n_gpu = 0
+
+        if getattr(self, "num_gpu", 0) > 0:
+            self.num_gpu = min(self.num_gpu, n_gpu)
             self.num_cpu = 1
-
-        if self.num_gpu == 0:
-            self.simulation_backend = 'default'
+        else:
+            self.num_gpu = 0
+            self.simulation_backend = "default"
 
         if self.check_inputs:
             self._check()
+
         self._setup_algorithm()
 
     @_doc_function_fields
