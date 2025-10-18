@@ -22,24 +22,28 @@ Questions regarding the use of the SONATA spatial tool or this demonstration rep
 directed to [frederik.priem@vito.be](frederik.priem@vito.be).
 
 ## Acknowledgements
-While VITO is taking a leading role in the development of the SONATA spatial tool, we would like to acknowledge the valuable contributions made to this effort by several of the SONATA consortium partners. The people we would like to thank include, but are not limited to:
+While VITO is taking a leading role in the development of the SONATA spatial tool, we would like to acknowledge the valuable contributions made to this effort by the SONATA consortium partners. Special thanks to:
 
-- BioSense Institute:
+- _BioSense Institute_:
     - Nikola Obrenović
     - Maksim Lalić
     - Tijana Nikolic
     - Maja Knežević
     - Branislav Pejak
-- Norwegian Institute for Nature Research
+- _Norwegian Institute for Nature Research_
     - Markus Sydenham
     - Hedda Ørbæk
 
 We would furthermore like to acknowledge the funding received from the European Commission for the SONATA project.
 
-<p float="left">
-  <img src="img/Vito-Logo_White_blue background.png" width="300" style="margin-right: 5%;">
-  <img src="img/Institute_BioSense_Logo.png" width="370" style="margin-right: 5%;">
-  <img src="img/NINAlogo_text_black.png" width="200" style="background-color: white;">
-</p>
 
-<img src="img/EN_FundedbytheEU_RGB_POS.png" width="600">
+<img src="img/Vito-Logo_White_blue background.png" width="330">
+
+
+<img src="img/Institute_BioSense_Logo.png" width="330">
+
+
+<img src="img/NINAlogo_text_black_white-bg.png" width="250">
+
+
+<img src="img/EN_FundedbytheEU_RGB_POS.png" width="490">
