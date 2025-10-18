@@ -60,8 +60,8 @@ class Layer(BaseModel):
         description="""Whether to cache the layer values in memory. Cached values can quickly be
             reused when the layer is loaded or updated."""
     )] = False
-    _values: Annotated[Union[np.ndarray, None], PrivateAttr()] = None
-    _cached_values: Annotated[Union[np.ndarray, None], PrivateAttr()] = None
+    _values: Optional[Union[np.ndarray, None]] = PrivateAttr(default=None)
+    _cached_values: Optional[Union[np.ndarray, None]] = PrivateAttr(default=None)
 
     def model_post_init(self, __context) -> None:  # pylint: disable=arguments-differ
 
