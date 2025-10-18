@@ -388,7 +388,7 @@ def standardize(
 
     input_layer = input_layers[0]
     xp = _get_backend(backend)
-    input_layer = xp.asarray(input_layer)
+    input_layer = xp.asarray(input_layer, dtype=float)
 
     mean = input_layer.mean()
     std = input_layer.std()

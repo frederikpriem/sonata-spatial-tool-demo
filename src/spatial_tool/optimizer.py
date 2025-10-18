@@ -107,12 +107,9 @@ def _mp_evaluate_solutions(optim, solutions):
             pool.join()
 
     else:
-        iterator = tqdm(solutions,
-            desc=desc,
-            leave=False)
         fitnesses = []
 
-        for solution in iterator:
+        for solution in solutions:
             fitnesses.append(optim._toolbox.evaluate(solution))
 
     return fitnesses
