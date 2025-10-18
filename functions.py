@@ -191,6 +191,8 @@ def potential_sng(
     crop = input_layers[1].astype(bool)
     pa = input_layers[10].astype(bool)
 
+    input_layers = [np.nan_to_num([input_layer]) for input_layer in input_layers]
+
     # standardize input layers that are to be weighted (exclude layers that are only constraints)
     input_layers = [standardize([input_layer]) for input_layer in input_layers[:-1]]
 
