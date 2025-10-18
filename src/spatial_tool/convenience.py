@@ -669,7 +669,7 @@ def convolve(
         sp = importlib.import_module('cupyx.scipy.ndimage')
 
     input_layer = input_layers[0]
-    input_layer = xp.asarray(input_layer)
+    input_layer = xp.asarray(input_layer, dtype=float)
 
     radius_cells = int(xp.ceil(radius_m / cell_size_m))
     y, x = xp.ogrid[-radius_cells:radius_cells+1, -radius_cells:radius_cells+1]
