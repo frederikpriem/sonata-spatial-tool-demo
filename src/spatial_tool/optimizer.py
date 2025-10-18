@@ -194,14 +194,14 @@ class Optimizer(BaseModel):
             effect if num_gpu >= 1. Will fall back to 'default' if num_gpu = 0. For greater effect,
             also use cupy in the layer functions, objective functions and decision functions."""
     )] = 'default'
-    _created_at: Annotated[str, PrivateAttr()] = None
-    _optimization_started_at: Annotated[str, PrivateAttr()] = None
-    _optimization_finished_at: Annotated[str, PrivateAttr()] = None
-    _num_coef: Annotated[int, PrivateAttr()] = None
-    _toolbox: Any = deap.base.Toolbox()
-    _logbook: Annotated[Any, PrivateAttr()] = None
-    _population: Annotated[List, PrivateAttr()] = None
-    _mutation_strength: Annotated[float, PrivateAttr()] = None
+    _created_at: Optional[str] = PrivateAttr(default=None)
+    _optimization_started_at: Optional[str] = PrivateAttr(default=None)
+    _optimization_finished_at: Optional[str] = PrivateAttr(default=None)
+    _num_coef: Optional[int] = PrivateAttr(default=None)
+    _toolbox: Optional[Any] = PrivateAttr(default=deap.base.Toolbox())
+    _logbook: Optional[Any] = PrivateAttr(default=None)
+    _population: Optional[List] = PrivateAttr(default=None)
+    _mutation_strength: Optional[float] = PrivateAttr(default=None)
 
     def model_post_init(self, __context) -> None:  # pylint: disable=arguments-differ
 
