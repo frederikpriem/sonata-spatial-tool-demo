@@ -1276,13 +1276,12 @@ class Optimizer(BaseModel):
                 re =  None
             elif isinstance(obj, np.ndarray):
                 re = None
-            elif hasattr(obj, "model_dump"):
-                data_dict = obj.model_dump(exclude_none=True)
-                return {
-                    k: serialize(v) for k, v in data_dict.items() if not isinstance(v, np.ndarray)
-                }
             elif isinstance(obj, dict):
-                re = {k: serialize(v) for k, v in obj.items() if not isinstance(v, np.ndarray)}
+                re = {
+                    k: serialize(v)
+                    for k, v in obj.items()
+                    if not isinstance(v, np.ndarray) and not callable(v)
+                }
             elif isinstance(obj, (list, tuple, set)):
                 re = [serialize(item) for item in obj if not isinstance(item, np.ndarray)]
             elif isinstance(obj, Path):
@@ -1291,24 +1290,20 @@ class Optimizer(BaseModel):
                 re = obj
             elif isinstance(obj, rasterio.crs.CRS):
                 re = f'EPSG:{obj.to_epsg()}'
-            elif isinstance(obj, BaseModel):
-                try:
-                    data_dict = obj.model_dump(exclude_none=True)
-                except AttributeError:  # Pydantic v1 fallback
-                    data_dict = obj.dict(exclude_none=True)
-                re = {k: serialize(v) for k, v in data_dict.items() if not isinstance(v, np.ndarray)}
-
-                if hasattr(obj, "__private_attributes__"):
-                    priv = {k: serialize(getattr(obj, k)) for k in obj.__private_attributes__}
-                    re.update(priv)
-            elif hasattr(obj, "__dict__"):
+            elif callable(obj):
+                re = str(obj)
+            elif callable(getattr(obj, "model_dump", None)):
+                data_dict = obj.model_dump(exclude_none=True)
                 re = {
-                    k: serialize(v)
-                    for k, v in obj.__dict__.items()
-                    if not isinstance(v, np.ndarray)
+                    k: serialize(v) for k, v in data_dict.items() if not isinstance(v, np.ndarray)
+                }
+            elif callable(getattr(obj, "dict", None)):
+                data_dict = obj.dict(exclude_none=True)
+                re = {
+                    k: serialize(v) for k, v in data_dict.items() if not isinstance(v, np.ndarray)
                 }
             else:
-                raise TypeError(f"Unsupported type '{type(obj)}' for '{obj}'")
+                re = None
 
             return re
 
