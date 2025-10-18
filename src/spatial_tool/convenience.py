@@ -393,6 +393,9 @@ def standardize(
     mean = input_layer.mean()
     std = input_layer.std()
 
+    if std == 0:
+        std = 1
+
     stand = (input_layer - mean) / std
 
     if backend == 'cupy' and return_np_array:
