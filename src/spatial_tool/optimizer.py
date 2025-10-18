@@ -1276,6 +1276,11 @@ class Optimizer(BaseModel):
                 re =  None
             elif isinstance(obj, np.ndarray):
                 re = None
+            elif hasattr(obj, "model_dump"):
+                data_dict = obj.model_dump(exclude_none=True)
+                return {
+                    k: serialize(v) for k, v in data_dict.items() if not isinstance(v, np.ndarray)
+                }
             elif isinstance(obj, dict):
                 re = {k: serialize(v) for k, v in obj.items() if not isinstance(v, np.ndarray)}
             elif isinstance(obj, (list, tuple, set)):
