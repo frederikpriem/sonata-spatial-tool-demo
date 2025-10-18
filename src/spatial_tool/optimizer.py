@@ -23,7 +23,6 @@ import deap.tools
 import numpy as np
 import inspect
 import pydantic
-from pydantic.fields import ModelField
 from pydantic import BaseModel, Field, PrivateAttr, ConfigDict
 from deap.tools import Logbook
 from deap.tools.emo import sortNondominated
@@ -1275,8 +1274,6 @@ class Optimizer(BaseModel):
 
             if obj is None:
                 re =  None
-            elif isinstance(obj, ModelField) or inspect.isclass(obj):
-                re = str(obj)
             elif isinstance(obj, np.ndarray):
                 re = None
             elif isinstance(obj, dict):
